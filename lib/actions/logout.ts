@@ -1,26 +1,21 @@
-"use server";
+/**
+ * NOTE: this file is only needed if you're doing SSR (getServerSideProps)!
+ */
+import { supabase } from '../../lib/db'
+import { useRouter } from 'next/router';
 
-import { cookies } from "next/headers";
-import { auth, lucia } from "../auth";
-import { redirect } from "next/navigation";
+export async function logout() {
+    const router = useRouter();
+    const { error } = await supabase.auth.signOut();
 
-interface ActionResult {
-    error: string | null;
-}
+    fetch('/api/logout', {
+        method: 'POST',
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        credentials: 'same-origin',
+        body: JSON.stringify({}),
+    }).then((res) => res.json());
 
-export async function logout(): Promise<ActionResult> {
-    "use server";
-    const { session } = await auth();
-
-    if (!session) {
-        return {
-            error: "Unauthorized",
-        };
+    if(!error) {
+        router.push(`/`);
     }
-
-    await lucia.invalidateSession(session.id);
-
-    const sessionCookie = lucia.createBlankSessionCookie();
-    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-    return redirect("/");
 }

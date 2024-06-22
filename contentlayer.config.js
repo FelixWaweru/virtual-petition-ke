@@ -66,7 +66,7 @@ export const Guides = defineDocumentType(() => ({
         draft: {
             type: "boolean",
         },
-        archived: { // Added archived field to mark posts as archived
+        archived: {
             type: "boolean",
             default: false,
         },

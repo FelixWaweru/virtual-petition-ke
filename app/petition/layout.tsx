@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 ) : (
                     <Button href="/login/github" color="light">
                         <GithubIcon />
-                        Sign in with GitHub
+                        Sign
                     </Button>
                 )}
             </MotionDiv>

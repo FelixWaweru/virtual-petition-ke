@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Suspense } from "react";
 import Loading from "./loading";
 import LoadMore from "./loadmore";
+import { supabase } from '../../lib/db'
+import { auth } from "@/lib/auth";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 50;
 
 export type PostsQuery = {
     id: string;
@@ -16,9 +18,34 @@ export type PostsQuery = {
     name: string;
 };
 
+async function postsFetch(){
+    const { user } = await auth();
+
+    if (!user.id) {
+        // return
+    }
+    else if(user.id) {
+        let { data: user_history, error } = await supabase
+            .from('user_history')
+            .select("id, user_id, prompt, response, created_at")
+            // Filters
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
+            .limit(PAGE_SIZE);
+        
+        if(!error) {
+            // setUserHistory(user_history || [])
+            return user_history.rows as unknown as PostsQuery[];
+        }
+    }
+    else {
+    // Pass
+    }
+}
+
 const getPosts = async (offset: number) => {
     const postsQuery = await db.execute({
-        sql: `SELECT post.*, user.username, user.name FROM post JOIN user ON post.user_id = user.id ORDER BY post.created_at DESC LIMIT 20 OFFSET ?`,
+        sql: `SELECT post.*, user.username, user.name FROM post JOIN user ON post.user_id = user.id ORDER BY post.created_at DESC LIMIT 50 OFFSET ?`,
         args: [offset],
     });
     return postsQuery.rows as unknown as PostsQuery[];
@@ -37,6 +64,7 @@ const loadMorePosts = async (offset: number = 0) => {
 };
 
 export default async function GuestbookPage() {
+
     const intialPosts = await getPosts(0);
 
     return (
