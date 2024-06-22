@@ -50,9 +50,25 @@ export const Guides = defineDocumentType(() => ({
             type: "string",
             required: true,
         },
+        description: {
+            type: "string",
+        },
         date: {
             type: "date",
             required: true,
+        },
+        tags: {
+            type: "list",
+            of: {
+                type: "string",
+            },
+        },
+        draft: {
+            type: "boolean",
+        },
+        archived: { // Added archived field to mark posts as archived
+            type: "boolean",
+            default: false,
         },
     },
     computedFields,
