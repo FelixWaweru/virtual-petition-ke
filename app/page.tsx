@@ -42,12 +42,22 @@ export default function Home() {
             <MotionDiv variants={childVariants} className=" dark:text-grey-100 text-grey-800 mt-10 space-y-5">
                 <p>
                     Daily to do list:
-                        1. Wake up
-                        2. #REJECTFINANCEBILL2024
-                        3. Build a better future for Kenya
-                        4. Lunch Break
-                        5. Resume #REJECTFINANCEBILL2024
                 </p>
+                <p>
+                        1. Wake up
+                </p>
+                <p>
+                        2. #REJECTFINANCEBILL2024
+                </p>
+                <p>
+                        3. Build a better future for Kenya
+                </p>
+                <p>
+                        4. Lunch Break
+                </p>
+                <p>
+                        5. Resume #REJECTFINANCEBILL2024
+                </p>                                           
             </MotionDiv>
             <MotionDiv variants={childVariants}>
                 <svg

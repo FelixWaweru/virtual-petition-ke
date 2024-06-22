@@ -5,7 +5,7 @@ const navItems = {
         name: "🇰🇪 Home",
     },
     "/guides/git-contribution": {
-        name: "📩 Submission Guide",
+        name: "✍🏾 Submission Guide",
     },     
     "/meetups": {
         name: "🤝🏾 Meetups",

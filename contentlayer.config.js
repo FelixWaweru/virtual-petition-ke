@@ -41,42 +41,9 @@ export const Page = defineDocumentType(() => ({
     computedFields,
 }));
 
-export const Post = defineDocumentType(() => ({
-    name: "Post",
-    filePathPattern: `posts/**/*.mdx`,
-    contentType: "mdx",
-    fields: {
-        title: {
-            type: "string",
-            required: true,
-        },
-        description: {
-            type: "string",
-        },
-        date: {
-            type: "date",
-            required: true,
-        },
-        tags: {
-            type: "list",
-            of: {
-                type: "string",
-            },
-        },
-        draft: {
-            type: "boolean",
-        },
-        archived: { // Added archived field to mark posts as archived
-            type: "boolean",
-            default: false,
-        },
-    },
-    computedFields,
-}));
-
-export const Thoughts = defineDocumentType(() => ({
-    name: "Thoughts",
-    filePathPattern: `thoughts/**/*.mdx`,
+export const Guides = defineDocumentType(() => ({
+    name: "Guides",
+    filePathPattern: `guides/**/*.mdx`,
     contentType: "mdx",
     fields: {
         title: {
@@ -93,7 +60,7 @@ export const Thoughts = defineDocumentType(() => ({
 
 export default makeSource({
     contentDirPath: "./content",
-    documentTypes: [Post, Page, Thoughts],
+    documentTypes: [Page, Guides],
     mdx: {
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
