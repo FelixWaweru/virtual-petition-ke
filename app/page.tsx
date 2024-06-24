@@ -1,4 +1,3 @@
-import { Post, allPosts } from "@/.contentlayer/generated";
 import { ExternalLink } from "@/components/ui/ExternalLink";
 import Link from "next/link";
 import { ModeToggle } from "@/components/mode-toggle";
