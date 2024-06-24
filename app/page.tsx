@@ -43,7 +43,7 @@ export default function Home() {
                 <p>
                     Share and sign this virtual petition on issues affecting Kenyans and make your voice heard.
                 </p>
-                <p>
+                <ul className="list-disc pl-5">
                     <li>
                         Easily sign the petition from anywhere ✍🏾
                     </li>
@@ -56,7 +56,7 @@ export default function Home() {
                     <li>
                         Available on Web and Mobile 📱
                     </li>
-                </p>                
+                </ul>                
                 <p>
                     100% open source, free and NOT sponsored - all developers are welcome to contribute! 💻
                 </p>                                          

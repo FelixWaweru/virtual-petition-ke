@@ -30,8 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       }, []);
 
       function logOutFunction() {
-        localStorage.setItem("session", "");
-        localStorage.setItem("event", "");
+        localStorage.clear();
         window.location.reload();
       }
 
