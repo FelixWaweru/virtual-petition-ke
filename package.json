@@ -40,6 +40,7 @@
     "oslo": "^1.2.0",
     "perfect-freehand": "^1.2.2",
     "postcss": "8.4.23",
+    "profane-words": "^1.5.11",
     "react": "latest",
     "react-dom": "latest",
     "rehype-katex": "^7.0.0",

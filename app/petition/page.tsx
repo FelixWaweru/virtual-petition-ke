@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState } from "react";
 import Loading from "./loading";
 import LoadMore from "./loadmore";
 import { supabase } from '../../lib/db';
+import words from 'profane-words'
 
 const PAGE_SIZE = 30;
 
@@ -61,7 +62,7 @@ export default async function PetitionPage() {
             <PostCards offset={offset} posts={newPosts} key={offset} />,
             nextOffset,
         ] as const;
-    };  
+    };
 
     return (
         <Suspense fallback={<Loading />}>
@@ -74,13 +75,36 @@ export default async function PetitionPage() {
 }
 
 const PostCards = ({ posts }: { posts: PostsQuery[] }) => {
+    
+    function profanityFilter(text: string): string {
+        // Function to censor a word
+        const censorWord = (word: string): string => {
+            return word[0] + '*'.repeat(word.length - 1);
+        };
+      
+        // Split the text into words
+        let textWords: string[] = text.split(/\b/);
+      
+        // Process each word
+        textWords = textWords.map((word: string) => {
+            let lowerWord: string = word.toLowerCase();
+            if (words.includes(lowerWord)) {
+                return censorWord(word);
+            }
+            return word;
+        });
+      
+        // Join the words back into a string
+        return textWords.join('');
+    }  
+
     return (
         <ul className="grid grid-cols-12 gap-5 mt-10">
             {posts.length !== 0 ? (
                 posts.map((post) => (
                     <li key={post.id} className="flex col-span-12 sm:col-span-4">
                         <Card className="rounded-lg flex flex-col justify-between space-y-3 h-full">
-                            <p className="leading-6 text-slate-900 dark:text-slate-50">{post.message}</p>
+                            <p className="leading-6 text-slate-900 dark:text-slate-50">{profanityFilter(post.message)}</p>
 
                             <div className="mt-auto flex items-center justify-between">
                                 <div className="flex flex-col justify-end h-full text-sm">
