@@ -12,13 +12,13 @@ export default function Icon() {
     return new ImageResponse(
         (
             <div
-                tw="flex items-center justify-center bg-zinc-900 text-[20px] leading-8 text-white"
+                tw="flex items-center justify-center bg-green-600 text-[20px] leading-8 text-white"
                 style={{
                     width: 32,
                     height: 32,
                 }}
             >
-                E
+                KE
             </div>
         ),
         {
