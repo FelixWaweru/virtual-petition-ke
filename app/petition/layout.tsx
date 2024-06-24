@@ -142,7 +142,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
                     <ExternalLink text="follow the conversation on x" href="https://x.com/hashtag/RejectFinanceBill2024" />
 
-                    <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/total-mp-recall" />
+                    <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/virtual-petition-ke" />
                 </MotionDiv>            
         </section>
     );
