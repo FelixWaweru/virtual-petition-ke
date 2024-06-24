@@ -32,6 +32,27 @@ const kaisei = localFont({
 export const metadata = {
     title: "Virtual Petition KE",
     description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
+    openGraph: {
+        title: "Virtual Petition KE",
+        description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
+        url: "https://virtual-petition-ke.vercel.app/",
+        type: "website",
+        site_name: "Virtual Petition KE",
+        images: [
+            {
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1280px-Flag_of_Kenya.svg.png",
+                width: 800,
+                height: 600,
+                alt: "Virtual Petition KE",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Virtual Petition KE",
+        description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1280px-Flag_of_Kenya.svg.png",
+    },    
 };
 
 interface RootLayoutProps {
