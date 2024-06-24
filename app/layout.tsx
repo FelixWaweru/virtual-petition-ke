@@ -35,7 +35,7 @@ export const metadata = {
     openGraph: {
         title: "Virtual Petition KE",
         description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
-        url: "https://virtual-petition-ke.vercel.app/",
+        url: "https://reject-ke.vercel.app/",
         type: "website",
         site_name: "Virtual Petition KE",
         images: [
