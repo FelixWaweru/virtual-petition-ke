@@ -113,11 +113,11 @@ export const SignDialog = () => {
                     <DialogBody className="space-y-4">
                         <Field>
                             <Label>Your Name</Label>
-                            <Textarea invalid={textInvalid} rows={1} maxLength={150} name="name" />
+                            <Textarea invalid={textInvalid} rows={1} maxLength={100} name="name" />
                         </Field>                        
                         <Field>
                             <Label>Leave a message</Label>
-                            <Textarea invalid={textInvalid} rows={3} name="message" />
+                            <Textarea invalid={textInvalid} rows={3} maxLength={250} name="message" />
                         </Field>
                         <Field>
                             <Label>Sign Here</Label>
