@@ -8,8 +8,6 @@ import { Textarea } from "@/components/textarea";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "../../lib/db";
-import { revalidatePathFunction } from '../../lib/actions/revalidatePath';
-import router from "next/router";
 
 
 export const SignDialog = () => {
@@ -17,10 +15,10 @@ export const SignDialog = () => {
     const [localSignature, setLocalSignature] = useState<string>("");
     const [textInvalid, setTextInvalid] = useState(false);
     const [formLoading, setFormLoading] = useState(false);
-    const [user, setUser] = useState<string>("");
+    const [user, setUser] = useState<any>("");
     
     useEffect(() => {
-        let userData = localStorage.getItem("session") ? localStorage.getItem("session") : "";
+        let userData = localStorage.getItem("session") ? (localStorage.getItem("session") as string) : "";
 
         if (userData !== "" ) {
             userData = JSON.parse(userData);

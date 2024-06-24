@@ -20,10 +20,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
     const [user, setUser] = useState<string>("");
 
     useEffect(() => {
-        let userData = localStorage.getItem("session") ? localStorage.getItem("session") : "";
+        let userData = localStorage.getItem("session") ? (localStorage.getItem("session") as string) : "";
 
         if (userData !== "" ) {
             userData = JSON.parse(userData);
+            setUser(userData);
         }
 
         setUser(userData);
@@ -109,7 +110,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
                 {user !== ""  ? (
                     <div className="flex w-full justify-between items-center">
-                        <SignDialog user={user} />
+                        <SignDialog />
                         <Button plain onClick={logOutFunction}>
                                 <SignOutIcon />
                                 Sign out
@@ -141,7 +142,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
                     <ExternalLink text="follow the conversation on x" href="https://x.com/hashtag/RejectFinanceBill2024" />
 
-                    <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/total-mp-recall" />
+                    <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/virtual-petition-ke" />
                 </MotionDiv>            
         </section>
     );

@@ -1,4 +1,3 @@
-import { Post, allPosts } from "@/.contentlayer/generated";
 import { ExternalLink } from "@/components/ui/ExternalLink";
 import Link from "next/link";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -78,7 +77,7 @@ export default function Home() {
 
                 <ExternalLink text="follow the conversation on x" href="https://x.com/hashtag/RejectFinanceBill2024" />
 
-                <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/total-mp-recall" />
+                <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/virtual-petition-ke" />
             </MotionDiv>
         </MotionDiv>
     );
