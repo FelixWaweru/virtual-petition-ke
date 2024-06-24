@@ -59,7 +59,7 @@ export default async function PostPage({ params }: PostProps) {
             <MotionDiv initial="hidden" animate="visible" variants={variant}>
                 <article className="py-6 prose dark:prose-invert">
                     <div className="mb-10">
-                        <h1 className="mb-2 text-2xl">{post.title}</h1>
+                        <h1 className="mb-2 text-4xl font-nwr">{post.title}</h1>
 
                         <div className="flex gap-x-2">
                             <p className="text-base mt-0 text-slate-700 dark:text-slate-200">

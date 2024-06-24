@@ -1,90 +1,92 @@
-import { db } from "@/lib/db";
+"use client";
+
 import { Card } from "@/components/card";
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Loading from "./loading";
 import LoadMore from "./loadmore";
-import { supabase } from '../../lib/db'
-import { auth } from "@/lib/auth";
+import { supabase } from '../../lib/db';
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 30;
 
 export type PostsQuery = {
-    id: string;
-    message: string;
-    created_at: number;
-    signature: string;
-    username: string;
-    name: string;
+    "id": string;
+    "message": string;
+    "created_at": number;
+    "signature": string;
+    "name": string;
 };
 
-async function postsFetch(){
-    const { user } = await auth();
+export default async function PetitionPage() {
+    const [initialPosts, setInitialPosts] = useState<PostsQuery[]>([]);
 
-    if (!user.id) {
-        // return
-    }
-    else if(user.id) {
-        let { data: user_history, error } = await supabase
-            .from('user_history')
-            .select("id, user_id, prompt, response, created_at")
-            // Filters
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false })
-            .limit(PAGE_SIZE);
-        
-        if(!error) {
-            // setUserHistory(user_history || [])
-            return user_history.rows as unknown as PostsQuery[];
+    useEffect(() => {
+        const fetchInitialPosts = async () => {
+            let initialPostsFetch = await postsFetch(PAGE_SIZE);
+
+            setInitialPosts(initialPostsFetch);
+        };
+
+        fetchInitialPosts();
+    }, []);    
+
+    async function postsFetch(fetchLimit: number){
+        let { data: postQuery, error: postQueryError } = await supabase
+            .from('signatures')
+            .select("id, message, created_at, signature, name")
+            .order("created_at",  { ascending: false })
+            .limit(fetchLimit);
+
+        if(!postQueryError && postQuery) {
+            return postQuery as unknown as PostsQuery[];
         }
+
+        return [];
     }
-    else {
-    // Pass
-    }
-}
 
-const getPosts = async (offset: number) => {
-    const postsQuery = await db.execute({
-        sql: `SELECT post.*, user.username, user.name FROM post JOIN user ON post.user_id = user.id ORDER BY post.created_at DESC LIMIT 50 OFFSET ?`,
-        args: [offset],
-    });
-    return postsQuery.rows as unknown as PostsQuery[];
-};
-
-const loadMorePosts = async (offset: number = 0) => {
-    "use server";
-    const posts = await getPosts(offset);
-    const nextOffset = posts.length >= PAGE_SIZE ? offset + PAGE_SIZE : null;
-
-    return [
-        // @ts-expect-error async RSC
-        <PostCards offset={offset} posts={posts} key={offset} />,
-        nextOffset,
-    ] as const;
-};
-
-export default async function GuestbookPage() {
-
-    const intialPosts = await getPosts(0);
+    const loadMorePosts = async (offset: number = 0) => {
+        // Calculate the fetch limit based on the offset and PAGE_SIZE
+        const fetchLimit = offset + PAGE_SIZE;
+    
+        const posts = await postsFetch(fetchLimit);
+    
+        // Calculate the next offset
+        const nextOffset = posts.length >= PAGE_SIZE ? offset + PAGE_SIZE : null;
+    
+        // Slice the posts array to get only the new posts
+        const newPosts = posts.slice(offset);
+    
+        return [
+            // @ts-expect-error async RSC
+            <PostCards offset={offset} posts={newPosts} key={offset} />,
+            nextOffset,
+        ] as const;
+    };  
 
     return (
         <Suspense fallback={<Loading />}>
-            {/* <ul className="grid grid-cols-12 gap-5 mt-10">
-                {posts.map((post) => (
-                    <li key={post.id} className="flex col-span-12 sm:col-span-6">
+            <LoadMore loadMoreAction={loadMorePosts} initialOffset={PAGE_SIZE}>
+                <PostCards posts={initialPosts} />
+            </LoadMore>
+        </Suspense>
+        
+    );
+}
+
+const PostCards = ({ posts }: { posts: PostsQuery[] }) => {
+    return (
+        <ul className="grid grid-cols-12 gap-5 mt-10">
+            {posts.length !== 0 ? (
+                posts.map((post) => (
+                    <li key={post.id} className="flex col-span-12 sm:col-span-4">
                         <Card className="rounded-lg flex flex-col justify-between space-y-3 h-full">
-                            <p className="leading-6 text-grey-900 dark:text-grey-50">{post.message}</p>
+                            <p className="leading-6 text-slate-900 dark:text-slate-50">{post.message}</p>
 
                             <div className="mt-auto flex items-center justify-between">
                                 <div className="flex flex-col justify-end h-full text-sm">
-                                    {post.name ? (
-                                        <p className="font-bold">{post.name}</p>
-                                    ) : (
-                                        <p className="font-bold">@{post.username}</p>
-                                    )}
-
+                                    <p className="font-bold">{post.name}</p>
                                     <p>
-                                        {new Date(post.created_at * 1000).toLocaleString("en-US", {
+                                        {new Date(post.created_at).toLocaleString("en-US", {
                                             year: "numeric",
                                             month: "short",
                                             day: "numeric",
@@ -101,50 +103,13 @@ export default async function GuestbookPage() {
                             </div>
                         </Card>
                     </li>
-                ))}
-            </ul> */}
-            <LoadMore loadMoreAction={loadMorePosts} initialOffset={PAGE_SIZE}>
-                <PostCards posts={intialPosts} />
-            </LoadMore>
-        </Suspense>
-    );
-}
+                ))
+            ) : (
+                <li className="flex col-span-12 sm:col-span-4">
 
-const PostCards = ({ posts }: { posts: PostsQuery[] }) => {
-    return (
-        <ul className="grid grid-cols-12 gap-5 mt-10">
-            {posts.map((post) => (
-                <li key={post.id} className="flex col-span-12 sm:col-span-6">
-                    <Card className="rounded-lg flex flex-col justify-between space-y-3 h-full">
-                        <p className="leading-6 text-grey-900 dark:text-grey-50">{post.message}</p>
-
-                        <div className="mt-auto flex items-center justify-between">
-                            <div className="flex flex-col justify-end h-full text-sm">
-                                {post.name ? (
-                                    <p className="font-bold">{post.name}</p>
-                                ) : (
-                                    <p className="font-bold">@{post.username}</p>
-                                )}
-
-                                <p>
-                                    {new Date(post.created_at * 1000).toLocaleString("en-US", {
-                                        year: "numeric",
-                                        month: "short",
-                                        day: "numeric",
-                                        hour: "numeric",
-                                        minute: "numeric",
-                                    })}
-                                </p>
-                            </div>
-                            {post.signature && (
-                                <div className="dark:invert -mb-4 -mr-4">
-                                    <Image alt="signature" src={post.signature} width={150} height={150} />
-                                </div>
-                            )}
-                        </div>
-                    </Card>
                 </li>
-            ))}
+            )}
         </ul>
     );
 };
+

@@ -81,7 +81,7 @@ export function DialogTitle({ className, ...props }: React.ComponentPropsWithout
             {...props}
             className={clsx(
                 className,
-                "text-balance text-lg/6 font-semibold text-grey-950 sm:text-base/6 dark:text-white"
+                "text-balance text-lg/6 font-semibold text-slate-950 sm:text-base/6 dark:text-white"
             )}
         />
     );

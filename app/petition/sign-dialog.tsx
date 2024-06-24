@@ -5,22 +5,67 @@ import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/components/dia
 import { Field, Label } from "@/components/fieldset";
 import { SignaturePad, cn } from "@/components/signature-pad";
 import { Textarea } from "@/components/textarea";
-import { sign } from "@/lib/actions/sign";
-import { User } from "lucia";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useFormStatus } from "react-dom";
-import { set } from "date-fns";
+import { supabase } from "../../lib/db";
+import { revalidatePathFunction } from '../../lib/actions/revalidatePath';
+import router from "next/router";
 
-type SignDialogProps = {
-    user: User;
-};
 
-export const SignDialog = ({ user }: SignDialogProps) => {
+export const SignDialog = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [localSignature, setLocalSignature] = useState<string>("");
     const [textInvalid, setTextInvalid] = useState(false);
     const [formLoading, setFormLoading] = useState(false);
+    const [user, setUser] = useState<string>("");
+    
+    useEffect(() => {
+        let userData = localStorage.getItem("session") ? localStorage.getItem("session") : "";
+
+        if (userData !== "" ) {
+            userData = JSON.parse(userData);
+        }
+
+        setUser(userData);
+      }, []);    
+
+
+    const sign = async (formData: FormData) => {
+          
+        const name = formData.get("name") as string;
+        const message = formData.get("message") as string;
+        const signature = formData.get("signature") as string;
+    
+        if (user == "") {
+            return;
+        }
+    
+        let { data: postQuery, error: postQueryError } = await supabase
+            .from('signatures')
+            .select("id")
+            // Filters
+            .eq('user_id', user?.user.id);
+    
+        if(!postQueryError && postQuery) {
+            if (postQuery?.length) {
+                throw new Error("You have already signed the petition");
+            }
+        }
+    
+        let { data: newSignature, error: newSignatureError } = await supabase
+            .from('signatures')
+            .insert([{
+                user_id: user?.user.id,
+                name: name,
+                message: message,
+                signature: signature,
+                petition_name: "RejectFinanceBill2024"
+        }]);
+    
+        if(!newSignatureError && newSignature) {
+            window.location.reload();
+        }
+    }
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,6 +80,15 @@ export const SignDialog = ({ user }: SignDialogProps) => {
             setFormLoading(false);
             return;
         }
+
+        if (!formData.get("name")) {
+            setTextInvalid(true);
+            setIsOpen(true);
+
+            toast.error("Please enter your Name");
+            setFormLoading(false);
+            return;
+        }        
 
         formData.append("signature", localSignature);
 
@@ -52,13 +106,17 @@ export const SignDialog = ({ user }: SignDialogProps) => {
     return (
         <>
             <Button type="button" onClick={() => setIsOpen(true)}>
-                Sign petition
+                📝 Add your signature
             </Button>
             <Dialog open={isOpen} onClose={setIsOpen}>
                 <form onSubmit={handleSubmit}>
                     <DialogTitle>Sign petition</DialogTitle>
 
                     <DialogBody className="space-y-4">
+                        <Field>
+                            <Label>Your Name</Label>
+                            <Textarea invalid={textInvalid} rows={1} maxLength={150} name="name" />
+                        </Field>                        
                         <Field>
                             <Label>Leave a message</Label>
                             <Textarea invalid={textInvalid} rows={3} name="message" />

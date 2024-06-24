@@ -30,8 +30,8 @@ const kaisei = localFont({
 });
 
 export const metadata = {
-    title: "Recall Your MP Online",
-    description: "Let's speak up against bad governance ✨together✨ #RejectFinanceBill2024",
+    title: "Community Petition KE",
+    description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
 };
 
 interface RootLayoutProps {
@@ -47,18 +47,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <head>
                 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet" />
             </head>
-            <body className="antialiased bg-grey-50 dark:bg-grey-950 text-grey-800 dark:text-grey-100">
+            <body className="antialiased bg-grey-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
                 <Toaster richColors />
 
                 <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-                    <main className="max-w-[712px] mx-auto md:py-10 px-4 min-h-[calc(100vh-50px-100px)] mb-10">
+                    <main className="sm:mx-20 mx-0 md:py-10 px-4 min-h-[calc(100vh-50px-100px)] mb-10">
                         <Navbar />
                         {children}
                     </main>
 
-                    <footer className="fixed bottom-0 w-full dark:bg-grey-950 z-1000 py-2 border-t border-solid border-grey-100 dark:border-grey-700">
-                        <div className="mx-auto max-w-[712px] px-4 md:px-0 flex justify-between">
-                            <a href="https://x.com/hashtag/RejectFinanceBill2024">
+                    <footer className="fixed bottom-0 w-full z-1000 py-2 border-t border-solid border-grey-100 dark:border-grey-700 bg-gradient-to-r from-green-500 to-red-500 background-animate">
+                        <div className="mx-20 px-4 md:px-0 flex justify-between">
+                            <a href="https://x.com/whyweru">
                                 <svg
                                     width="15"
                                     height="15"
@@ -74,7 +74,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                     ></path>
                                 </svg>
                             </a>
-                            <div className="text-sm font-nwr">MMXXIV</div>
+                            <div className="text-sm mx-0 font-nwr">
+                                Made In Kenya with 💖                                                          
+                             </div>
                         </div>
                     </footer>
 

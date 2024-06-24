@@ -6,8 +6,8 @@ import React from "react";
 
 const meetups = [
     {
-        name: "#OccupyParliament",
-        date: "2023-10-26",
+        name: "TBD",
+        date: "2024-06-25",
         event: "#RejectFinanceBill2024",
         location: "Nairobi, Kenya",
     },
@@ -39,7 +39,7 @@ export default function TalksPage() {
                         </div>
                         {meetup.location && (
                             <div className="flex gap-2">
-                                <p className="text-sm text-grey-400">
+                                <p className="text-sm text-slate-400">
                                     {meetup.event} ({meetup.location})
                                 </p>
                             </div>

@@ -70,7 +70,7 @@ const styles = {
 
     colors: {
         light: [
-            "text-grey-950 [--btn-bg:white] [--btn-border:theme(colors.grey.950/10%)] [--btn-hover-overlay:theme(colors.grey.950/2.5%)] data-[active]:[--btn-border:theme(colors.grey.950/15%)] data-[hover]:[--btn-border:theme(colors.grey.950/15%)]",
+            "text-slate-950 [--btn-bg:white] [--btn-border:theme(colors.grey.950/10%)] [--btn-hover-overlay:theme(colors.grey.950/2.5%)] data-[active]:[--btn-border:theme(colors.grey.950/15%)] data-[hover]:[--btn-border:theme(colors.grey.950/15%)]",
             "dark:text-white dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-bg:theme(colors.grey.800)]",
             "[--btn-icon:theme(colors.grey.500)] data-[active]:[--btn-icon:theme(colors.grey.700)] data-[hover]:[--btn-icon:theme(colors.grey.700)] dark:[--btn-icon:theme(colors.grey.500)] dark:data-[active]:[--btn-icon:theme(colors.grey.400)] dark:data-[hover]:[--btn-icon:theme(colors.grey.400)]",
         ],

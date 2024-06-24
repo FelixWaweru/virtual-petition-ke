@@ -24,8 +24,8 @@ export default function Home() {
             <MotionHeader variants={childVariants}>
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h1 className="text-2xl">Recall Your MP Online</h1>
-                        <h3 className="text-grey-400 text-lg mt-1">
+                        <h1 className="font-medium text-4xl font-nwr">Community Petition KE</h1>
+                        <h3 className="gradient-text-dark text-lg mt-1">
                             <a
                                 href="https://x.com/hashtag/RejectFinanceBill2024"
                                 className="hover:underline cursor-pointer"
@@ -41,23 +41,25 @@ export default function Home() {
 
             <MotionDiv variants={childVariants} className=" dark:text-grey-100 text-grey-800 mt-10 space-y-5">
                 <p>
-                    Daily to do list:
+                    Share and sign this virtual petition on issues affecting Kenyans and make your voice heard.
                 </p>
                 <p>
-                        1. Wake up
-                </p>
+                    <li>
+                        Easily sign the petition from anywhere ✍🏾
+                    </li>
+                    <li>
+                        Track signatures with real-time progress 📊
+                    </li>
+                    <li>
+                        Share the link on social media 🐦
+                    </li> 
+                    <li>
+                        Available on Web and Mobile 📱
+                    </li>
+                </p>                
                 <p>
-                        2. #REJECTFINANCEBILL2024
-                </p>
-                <p>
-                        3. Build a better future for Kenya
-                </p>
-                <p>
-                        4. Lunch Break
-                </p>
-                <p>
-                        5. Resume #REJECTFINANCEBILL2024
-                </p>                                           
+                    100% open source, free and NOT sponsored - all developers are welcome to contribute! 💻
+                </p>                                          
             </MotionDiv>
             <MotionDiv variants={childVariants}>
                 <svg
@@ -74,7 +76,7 @@ export default function Home() {
                     ></path>
                 </svg>
 
-                <ExternalLink text="follow the revolution on x" href="https://x.com/hashtag/RejectFinanceBill2024" />
+                <ExternalLink text="follow the conversation on x" href="https://x.com/hashtag/RejectFinanceBill2024" />
 
                 <ExternalLink text="contribute your ideas on github" href="https://github.com/FelixWaweru/total-mp-recall" />
             </MotionDiv>
