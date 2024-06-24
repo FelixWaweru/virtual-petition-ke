@@ -24,7 +24,7 @@ export default function Home() {
             <MotionHeader variants={childVariants}>
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h1 className="font-medium text-4xl font-nwr">Community Petition KE</h1>
+                        <h1 className="font-medium text-4xl font-nwr">Virtual Petition KE</h1>
                         <h3 className="gradient-text-dark text-lg mt-1">
                             <a
                                 href="https://x.com/hashtag/RejectFinanceBill2024"

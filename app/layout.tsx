@@ -30,7 +30,7 @@ const kaisei = localFont({
 });
 
 export const metadata = {
-    title: "Community Petition KE",
+    title: "Virtual Petition KE",
     description: "Collect your signature virtually for a worthy cause #RejectFinanceBill2024",
 };
 
