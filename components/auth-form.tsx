@@ -1,6 +1,6 @@
 "use client";
 
-import { Auth, Card, Space } from '@supabase/ui';
+import { Auth, Card, Typography, Space } from '@supabase/ui';
 import { supabase } from '../lib/db';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -44,6 +44,9 @@ const Index = (): JSX.Element => {
     return (
       <Space direction="vertical" size={8}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <img className= "mb-2 rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1200px-Flag_of_Kenya.svg.png" width="40" />
+          <Typography.Title level={4}>Secure your Signature 🔒</Typography.Title>
+          <Typography.Text type="success">Safeguard your data with End-to-End Encryption</Typography.Text>
         </div>
         <Auth
           supabaseClient={supabase}
