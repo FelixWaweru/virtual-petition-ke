@@ -46,7 +46,7 @@ const Index = (): JSX.Element => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <img className= "mb-2 rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1200px-Flag_of_Kenya.svg.png" width="40" />
           <Typography.Title level={4}>Secure your Signature 🔒</Typography.Title>
-          <Typography.Text type="success">Safeguard your data with E2EE encryption</Typography.Text>
+          <Typography.Text type="success">Safeguard your data with End-to-End Encryption</Typography.Text>
         </div>
         <Auth
           supabaseClient={supabase}
